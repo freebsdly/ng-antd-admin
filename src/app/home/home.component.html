@@ -1,0 +1,112 @@
+<button nz-button nzType="primary">Primary Button</button>
+<button nz-button nzType="default">Default Button</button>
+<button nz-button nzType="dashed">Dashed Button</button>
+<button nz-button nzType="text">Text Button</button>
+<a nz-button nzType="link">Link Button</a>
+
+<nz-input-number [nzMin]="1" [nzMax]="10" [nzStep]="1"></nz-input-number>
+<nz-transfer
+  [nzDataSource]="list"
+  [nzDisabled]="disabled"
+  [nzTitles]="['Source', 'Target']"
+  (nzSelectChange)="select($event)"
+  [nzSelectedKeys]="['0', '2']"
+  (nzChange)="change($event)"
+>
+</nz-transfer>
+<div style="margin-top: 8px">
+  <nz-switch
+    nzCheckedChildren="disabled"
+    nzUnCheckedChildren="disabled"
+  ></nz-switch>
+  <div></div>
+</div>
+
+<button nz-button nzType="primary" (click)="open()">Open</button>
+<nz-drawer
+  [nzClosable]="false"
+  [nzVisible]="visible"
+  nzPlacement="right"
+  nzTitle="Basic Drawer"
+  (nzOnClose)="close()"
+>
+  <ng-container *nzDrawerContent>
+    <p>Some contents...</p>
+    <p>Some contents...</p>
+    <p>Some contents...</p>
+  </ng-container>
+</nz-drawer>
+
+<button nz-button [nzType]="'primary'" (click)="showModal()">
+  <span>Show Modal</span>
+</button>
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="The first Modal"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+>
+  <ng-container *nzModalContent>
+    <p>Content one</p>
+    <p>Content two</p>
+    <p>Content three</p>
+  </ng-container>
+</nz-modal>
+
+<nz-calendar
+  [nzDateCell]="dateCellTpl"
+  [(nzValue)]="date"
+  [(nzMode)]="mode"
+  [nzFullscreen]="fullScreen"
+  (nzPanelChange)="panelChange($event)"
+  (nzSelectChange)="selectChange($event)"
+>
+  <div *dateCell>Foo</div>
+</nz-calendar>
+<ng-template #dateCellTpl let-date>
+  <!-- <span>{{ date }}</span> -->
+</ng-template>
+
+<button
+  nz-button
+  nz-popover
+  nzType="primary"
+  nzPopoverTitle="Title"
+  nzPopoverContent="Content"
+>
+  Hover me
+</button>
+
+<nz-card style="width: 300px" nzTitle="Card title" [nzExtra]="extraTemplate">
+  <p>Card content</p>
+  <p>Card content</p>
+  <p>Card content</p>
+</nz-card>
+<ng-template #extraTemplate>
+  <a>More</a>
+</ng-template>
+
+<nz-collapse>
+  <nz-collapse-panel
+    *ngFor="let panel of panels"
+    [nzHeader]="panel.name"
+    [nzActive]="panel.active"
+    [nzDisabled]="panel.disabled"
+  >
+    <p style="margin: 0">
+      A dog is a type of domesticated animal. Known for its loyalty and
+      faithfulness, it can be found as a welcome guest in many households across
+      the world.
+    </p>
+  </nz-collapse-panel>
+</nz-collapse>
+
+<nz-descriptions nzTitle="User Info">
+    <nz-descriptions-item nzTitle="UserName">Zhou Maomao</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Telephone">18100000000</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Live">Hangzhou, Zhejiang</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Remark">Empty</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Address">
+      No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China
+    </nz-descriptions-item>
+  </nz-descriptions>
