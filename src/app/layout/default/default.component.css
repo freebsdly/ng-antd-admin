@@ -26,6 +26,7 @@ nz-header {
     height: 56px;
     background: #1976d2;
     color: #fff;
+    border: 0;
 }
 
 nz-avatar {
