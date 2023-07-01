@@ -1,0 +1,22 @@
+<nz-tabset
+  style="height: 220px"
+  nzType="editable-card"
+  [nzTabPosition]="nzTabPosition"
+  [(nzSelectedIndex)]="selectedIndex"
+  (nzSelectChange)="log([$event])"
+  (nzClose)="closeTab($event)"
+  nzHideAdd=""
+>
+  <nz-tab
+    nzClosable
+    *ngFor="let tab of tabs"
+    [nzTitle]="tab.name"
+    [nzDisabled]="tab.disabled"
+    (nzSelect)="log(['select', tab])"
+    (nzClick)="log(['click', tab])"
+    (nzContextmenu)="log(['contextmenu', tab])"
+    (nzDeselect)="log(['deselect', tab])"
+  >
+    {{ tab.content }}
+  </nz-tab>
+</nz-tabset>

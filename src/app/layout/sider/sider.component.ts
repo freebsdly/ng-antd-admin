@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, Input } from '@angular/core';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
@@ -10,36 +9,48 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { CommonModule } from '@angular/common';
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
-import { TabsComponent } from "../tabs/tabs.component";
-import { HeaderComponent } from "../header/header.component";
-import { SiderComponent } from "../sider/sider.component";
+import { AppMenu } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-default',
+  selector: 'app-sider',
   standalone: true,
-  templateUrl: './default.component.html',
-  styleUrls: ['./default.component.css'],
   imports: [
     CommonModule,
-    RouterOutlet,
     NzAvatarModule,
     NzGridModule, NzLayoutModule,
     NzBreadCrumbModule, NzMenuModule,
     NzIconModule, NzSpaceModule,
     NzImageModule, NzDropDownModule,
-    TabsComponent,
-    HeaderComponent,
-    SiderComponent
-  ]
+  ],
+  templateUrl: './sider.component.html',
+  styleUrls: ['./sider.component.css']
 })
-export class DefaultLayoutComponent {
-  private isCollapsed = false;
+export class SiderComponent {
 
+  private isCollapsed = false;
+  private siderMenus: AppMenu[] = [
+    { title: '菜单1', key: 'menu1', icon: 'android' },
+    { title: '菜单2', key: 'menu2', icon: 'windows' },
+    { title: '菜单3', key: 'menu3', icon: 'chrome' },
+    {
+      title: '菜单4', key: 'menu4', icon: 'chrome', children: [
+        { title: '菜单1', key: 'menu1', icon: 'android' },
+        { title: '菜单2', key: 'menu2', icon: 'windows' },
+        { title: '菜单3', key: 'menu3', icon: 'chrome' },
+      ]
+    },
+  ];
+
+  @Input()
   get collapsed(): boolean {
     return this.isCollapsed;
   }
 
   set collapsed(value: boolean) {
     this.isCollapsed = value;
+  }
+
+  get menus(): AppMenu[] {
+    return this.siderMenus;
   }
 }

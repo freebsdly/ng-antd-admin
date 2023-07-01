@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
@@ -10,30 +9,28 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { CommonModule } from '@angular/common';
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
-import { TabsComponent } from "../tabs/tabs.component";
-import { HeaderComponent } from "../header/header.component";
-import { SiderComponent } from "../sider/sider.component";
+import { AppMenu, AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-default',
+  selector: 'app-header',
   standalone: true,
-  templateUrl: './default.component.html',
-  styleUrls: ['./default.component.css'],
   imports: [
     CommonModule,
     RouterOutlet,
     NzAvatarModule,
     NzGridModule, NzLayoutModule,
-    NzBreadCrumbModule, NzMenuModule,
+    NzMenuModule,
     NzIconModule, NzSpaceModule,
     NzImageModule, NzDropDownModule,
-    TabsComponent,
-    HeaderComponent,
-    SiderComponent
-  ]
+  ],
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
 })
-export class DefaultLayoutComponent {
+export class HeaderComponent {
+
   private isCollapsed = false;
+  @Output() siderCollapseChange = new EventEmitter<boolean>();
+  private headerMenus: AppMenu[] = [];
 
   get collapsed(): boolean {
     return this.isCollapsed;
@@ -41,5 +38,17 @@ export class DefaultLayoutComponent {
 
   set collapsed(value: boolean) {
     this.isCollapsed = value;
+    this.siderCollapseChange.emit(this.isCollapsed);
   }
+
+  get menus(): AppMenu[] {
+    return this.headerMenus;
+  }
+
+  constructor(authService: AuthService) {
+    authService.getHeaderMenus().subscribe((menus) => {
+      this.headerMenus = menus
+    });
+  }
+
 }

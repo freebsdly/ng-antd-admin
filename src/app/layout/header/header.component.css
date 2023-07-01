@@ -1,0 +1,23 @@
+.header-trigger {
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.3s;
+  color: #fff;
+}
+
+.header-trigger:hover {
+  color: #fff;
+}
+
+.header-menu {
+  height: 56px;
+  background: #1976d2;
+  color: #fff;
+  border: 0;
+}
+
+nz-avatar {
+  margin-left: 4px;
+  margin-right: 4px;
+  background-color: #87d068;
+}
